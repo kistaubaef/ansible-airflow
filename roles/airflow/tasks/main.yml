@@ -12,6 +12,20 @@
       group: root
       mode: '0644'
 
+  - name: Create a Directory dags
+    file:
+      path: /root/airflow/dags
+      state: directory
+
+  - name: Create a Directory logs
+    file:
+      path: /root/airflow/logs
+      state: directory
+
+  - name: Create a Directory plugins
+    file:
+      path: /root/airflow/plugins
+      state: directory
 
   - name: Copy docker-compose file to airflow path
     ansible.builtin.copy:
