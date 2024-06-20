@@ -1,12 +1,4 @@
 ---
-- hosts: airflows
-  become: true
-
-  tasks:
-
-  - name: Install Docker
-    ansible.builtin.shell: cd ~ && curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh get-docker.sh && rm -f get-docker.sh
-    
   - name: Create a Directory Airflow
     file:
       path: /root/airflow
@@ -14,7 +6,7 @@
 
   - name: Copy .env file to airflow path
     ansible.builtin.copy:
-      src: ./.env
+      src: files/.env
       dest: /root/airflow
       owner: root
       group: root
@@ -37,8 +29,32 @@
 
   - name: Copy docker-compose file to airflow path
     ansible.builtin.copy:
-      src: ./docker-compose.yaml
+      src: files/docker-compose.yaml
       dest: /root/airflow
+      owner: root
+      group: root
+      mode: '0644'
+
+  - name: Copy Dockerfile to airflow path
+    ansible.builtin.copy:
+      src: files/Dockerfile
+      dest: /root/airflow/docker/
+      owner: root
+      group: root
+      mode: '0644'
+
+  - name: Copy requirements.txt to airflow path
+    ansible.builtin.copy:
+      src: files/requirements.txt
+      dest: /root/airflow/docker/
+      owner: root
+      group: root
+      mode: '0644'
+
+  - name: Copy airflow.cfg file to airflow config path
+    ansible.builtin.copy:
+      src: files/airflow.cfg
+      dest: /root/airflow/config/
       owner: root
       group: root
       mode: '0644'
@@ -47,4 +63,5 @@
     ansible.builtin.shell: cd /root/airflow && docker compose -p airflow up airflow-init
 
   - name: Running Airflow
-    ansible.builtin.shell: cd /root/airflow && docker compose -p airflow up -d 
+    ansible.builtin.shell: cd /root/airflow && docker compose -p airflow up -d
+

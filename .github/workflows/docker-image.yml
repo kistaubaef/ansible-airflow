@@ -15,4 +15,4 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker compose -p airflow build
+      run: docker compose -f roles/airflow/files/docker-compose.yaml -p airflow build
