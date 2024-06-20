@@ -37,7 +37,7 @@
 
   - name: Copy Dockerfile to airflow path
     ansible.builtin.copy:
-      src: files/Dockerfile
+      src: files/docker/Dockerfile
       dest: /root/airflow/docker/
       owner: root
       group: root
@@ -45,7 +45,7 @@
 
   - name: Copy requirements.txt to airflow path
     ansible.builtin.copy:
-      src: files/requirements.txt
+      src: files/docker/requirements.txt
       dest: /root/airflow/docker/
       owner: root
       group: root
